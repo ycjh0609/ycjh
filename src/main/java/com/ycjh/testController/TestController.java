@@ -1,4 +1,4 @@
-package com.ycjh.ycjh001.testController;
+package com.ycjh.testController;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;

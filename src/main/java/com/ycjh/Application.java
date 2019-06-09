@@ -1,13 +1,13 @@
-package com.ycjh.ycjh001;
+package com.ycjh;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Ycjh001Application {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Ycjh001Application.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
