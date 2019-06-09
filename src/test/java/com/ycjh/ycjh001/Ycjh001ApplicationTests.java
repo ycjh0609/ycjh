@@ -1,4 +1,4 @@
-package me.ycjh.ycjh001;
+package com.ycjh.ycjh001;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

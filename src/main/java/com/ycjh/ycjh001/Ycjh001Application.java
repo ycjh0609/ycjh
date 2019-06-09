@@ -1,4 +1,4 @@
-package me.ycjh.ycjh001;
+package com.ycjh.ycjh001;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
