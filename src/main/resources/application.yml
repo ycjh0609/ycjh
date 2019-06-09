@@ -1,0 +1,15 @@
+server:
+  port: 8089
+# database
+spring:
+  datasource:
+    url: jdbc:mysql://13.125.128.10:3306/ycjh
+    username: ycjh
+    password: 111111
+    dirver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true # 실행 되는 SQL문을 보여 줄지 설정
+
