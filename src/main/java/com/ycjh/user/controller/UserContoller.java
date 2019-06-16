@@ -18,7 +18,7 @@ public class UserContoller {
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String index(){
         return ((List<UserModel>)userService.selectUser()).toString();
 
