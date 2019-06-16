@@ -1,4 +1,16 @@
 package com.ycjh.file.service;
 
-public interface fileService {
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
+public interface FileService {
+
+    public List<String> getFileList(String path);
+
+    public boolean uploadFile(MultipartFile multipartFile, String path);
+
+    public String getFilePath();
+
+
 }
