@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * SHA-256 암호화
- *
+ *22
  *
  */
 public class SHAUtil {
