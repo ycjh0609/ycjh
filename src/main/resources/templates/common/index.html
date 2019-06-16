@@ -46,7 +46,7 @@
                 success:function(data){
 
                     for (i=0;i<data.length;i++){
-                        dom = "<li><a href='"+data[i].filePath+"'>";
+                        dom = "<li><a href='"+data[i].filePath+"/"+data[i].fileName+"'>";
                         dom += data[i].fileName;
                         dom += "</a></li>";
                         $(".fileList").append(dom)
