@@ -32,6 +32,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public boolean uploadFile(MultipartFile multipartFile, String path) {
 
+        System.out.println("test Upload Service");
 
         return true;
     }
