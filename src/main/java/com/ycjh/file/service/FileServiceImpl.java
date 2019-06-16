@@ -54,11 +54,6 @@ public class FileServiceImpl implements FileService {
             //to- do
             //is dir
 
-<<<<<<< HEAD
-            //is exist
-=======
-        System.out.println("test Upload Service");
->>>>>>> 5beb414e25a0e63b91f7ed7341879045497d1026
 
             //is file
 
