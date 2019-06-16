@@ -28,7 +28,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("=========================+=======[COMMON LOGGER END]===============+============================");
+        logger.info("=================================[COMMON LOGGER END]============================================");
     }
 
     @Override

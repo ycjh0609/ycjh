@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/common-layout}">
+
+<div layout:fragment="content">
+
+
+    <div class="container">
+
+        <form action="/file/upload" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="file">file upload</label>
+                <input type="file" class="form-control-file" name="file" id="file">
+
+
+            </div>
+        </form>
+        <a class="btn btn-primary" id="submit">upload</a>
+        <div>
+            <ul class="fileList">
+
+
+            </ul>
+
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+        $(document).ready(function(){
+            getFileList();
+            $("#submit").click(function(){
+                fileUpload();
+            });
+
+
+        })
+        function getFileList(){
+            $.ajax({
+                url:"/file",
+                success:function(data){
+
+                    for (i=0;i<data.length;i++){
+                        dom = "<li><a href='"+data[i].filePath+"'>";
+                        dom += data[i].fileName;
+                        dom += "</a></li>";
+                        $(".fileList").append(dom)
+                    }
+                }
+            })
+        }
+
+        function fileUpload(){
+            var form = $('form')[0];
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: '/file/upload',
+                processData: false,
+                contentType: false,
+                data: formData,
+                type: 'POST',
+                success: function(result){
+                    $("form input").val("");
+                    $(".fileList").html("");
+                    getFileList();
+                    alert("업로드 성공!!");
+                },
+                fail:function(){
+                    alert("업로드 실패..")
+                }
+            });
+
+        }
+    </script>
+</div>
+
+</html>

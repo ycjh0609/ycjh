@@ -9,7 +9,20 @@ spring:
     username: ycjh
     password: 111111
     dirver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    prefix: classpath:templates/
+    order: 0
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: UTF-8
 
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
 
 mybatis:
   type-aliases-package: com.ycjh.mybatis.mapper
@@ -18,3 +31,6 @@ mybatis:
 log4jdbc:
   spylogdelegator:
     name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+
+
+
