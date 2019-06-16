@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -18,18 +19,7 @@ public class UserContoller {
     @Autowired
     UserService userService;
 
-    @GetMapping("")
-    public String index(){
-    	//123123123
-        return ((List<UserModel>)userService.selectUser()).toString();
 
-    }
 
-    @GetMapping("/test")
-    public List<UserModel> test(){
-
-        return (userService.selectUser());
-
-    }
 
 }
