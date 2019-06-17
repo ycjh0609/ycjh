@@ -1,6 +1,5 @@
 package com.ycjh.file.controller;
 
-import com.ycjh.common.util.JSONUtil;
 import com.ycjh.file.config.FilePropertiesConfig;
 import com.ycjh.file.model.FileModel;
 import com.ycjh.file.service.FileService;
@@ -22,24 +21,26 @@ public class FileController {
     FilePropertiesConfig filePropertiesConfig;
 
     @GetMapping("")
-    public List<FileModel> index(){
+    public List<FileModel> index() {
         String filePath = filePropertiesConfig.getBaseDir();
 
         return fileService.getFileList(filePath);
     }
-    @GetMapping(value="/test")
-    public String uploadtest(){
+
+    @GetMapping(value = "/test")
+    public String uploadtest() {
 
 
         return "hjih";
     }
-    @PostMapping(value="/upload")
-    public String upload(@RequestParam("file")MultipartFile file){
+
+    @PostMapping(value = "/upload")
+    public String upload(@RequestParam("file") MultipartFile file) {
 
         String filePath = filePropertiesConfig.getBaseDir();
 
 
-        return ""+fileService.uploadFile(file,filePath);
+        return "" + fileService.uploadFile(file, filePath);
     }
 
 }
