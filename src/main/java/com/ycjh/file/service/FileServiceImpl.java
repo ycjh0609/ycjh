@@ -14,9 +14,6 @@ import java.util.List;
 public class FileServiceImpl implements FileService {
 
 
-
-
-
     @Override
     public List<FileModel> getFileList(String filePath) {
 
@@ -30,9 +27,9 @@ public class FileServiceImpl implements FileService {
             fileModel.setFilePath(filePath);
             fileModel.setFileName(tempFile.getName());
 
-            if (tempFile.isDirectory()){
+            if (tempFile.isDirectory()) {
                 fileModel.setType("dir");
-            }else{
+            } else {
                 fileModel.setType("file");
             }
 
@@ -48,8 +45,8 @@ public class FileServiceImpl implements FileService {
     public boolean uploadFile(MultipartFile multipartFile, String filePath) {
         boolean result = false;
 
-        File file = new File(filePath+multipartFile.getOriginalFilename());
-        try{
+        File file = new File(filePath + multipartFile.getOriginalFilename());
+        try {
 
             //to- do
             //is dir
@@ -61,8 +58,8 @@ public class FileServiceImpl implements FileService {
 
 
             multipartFile.transferTo(file);
-            result=true;
-        }catch(Exception e){
+            result = true;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;

@@ -8,7 +8,9 @@ import java.util.List;
 public interface FileService {
 
     public List<FileModel> getFileList(String path);
+
     public boolean uploadFile(MultipartFile multipartFile, String path);
+
     public String getFilePath();
 
 

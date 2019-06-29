@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:ycjh.properties")
-@ConfigurationProperties(prefix="file")
+@ConfigurationProperties(prefix = "file")
 public class FilePropertiesConfig {
 
 
@@ -33,6 +33,7 @@ public class FilePropertiesConfig {
     public static String getBaseDir() {
         return baseDir;
     }
+
     public void setBaseDir(String baseDir) {
         this.baseDir = baseDir;
     }
