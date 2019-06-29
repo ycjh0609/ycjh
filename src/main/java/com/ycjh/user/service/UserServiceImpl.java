@@ -11,14 +11,25 @@ import java.util.List;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-//    @Resource(name = "UserMapper")
-
     @Autowired
     UserMapper userMapper;
 
-
-    @Override
-    public List<UserModel> selectUser() {
-        return userMapper.selectUser();
+    public UserModel selectUserOne(UserModel userModel){
+        return userMapper.selectUserOne(userModel);
     }
+
+    public List<UserModel> selectUserList(UserModel userModel){
+
+        return userMapper.selectUserList(userModel);
+    }
+    public void insertUser(UserModel userModel){
+        userMapper.insertUser(userModel);
+    }
+    public void updateUser(UserModel userModel){
+        userMapper.updateUser(userModel);
+    }
+    public void deleteUser(UserModel userModel){
+        userMapper.deleteUser(userModel);
+    }
+
 }

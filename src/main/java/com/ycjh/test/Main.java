@@ -1,24 +1,17 @@
 package com.ycjh.test;
 
+import com.ycjh.common.util.RSAUtil;
+
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String args []){
-        List<String> ls;
-
-//        String path="/Users/daniel/Projects/ycjh";
-//        File dirFile=new File(path);
-//        File[]fileList=dirFile.listFiles();
-//
-//        for(File tempFile : fileList) {
-//            if(tempFile.isFile()) {
-//                String tempPath=tempFile.getParent();
-//                String tempFileName=tempFile.getName();
-//                System.out.println(tempFileName);
-//                /*** Do something withd tempPath and temp FileName ^^; ***/
-//            }
-//        }
+    public static void main(String args []) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        RSAUtil rsa = new RSAUtil();
+        System.out.println(rsa.getPublicKey().toString());
+        System.out.println(rsa.getPrivateKey());
     }
 }

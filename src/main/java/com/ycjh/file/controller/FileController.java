@@ -27,13 +27,7 @@ public class FileController {
 
         return fileService.getFileList(filePath);
     }
-    @GetMapping(value="/test")
-    public String uploadtest(){
-
-
-        return "hjih";
-    }
-    @PostMapping(value="/upload")
+    @PutMapping(value="/upload")
     public String upload(@RequestParam("file")MultipartFile file){
 
         String filePath = filePropertiesConfig.getBaseDir();

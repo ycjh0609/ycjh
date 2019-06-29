@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class FilePropertiesConfig {
 
 
-    private String baseDir;
+    private static String baseDir;
     private String maxSize;
     private String available;
 
@@ -26,12 +26,11 @@ public class FilePropertiesConfig {
     public String getMaxSize() {
         return maxSize;
     }
-
     public String getAvailable() {
         return available;
     }
 
-    public String getBaseDir() {
+    public static String getBaseDir() {
         return baseDir;
     }
     public void setBaseDir(String baseDir) {

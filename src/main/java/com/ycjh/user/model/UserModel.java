@@ -2,53 +2,85 @@ package com.ycjh.user.model;
 
 public class UserModel {
 
-    String id;
+    private String user_id;
+    private String user_name;
+    private String user_pwd;
+    private String user_phonenum;
+    private String user_profile;
+    private String user_type;
+    private String reg_date;
+    private String udt_date;
+    private String team_id;
 
-    String password;
-
-    String email;
-
-    String name;
-
-    @Override
-    public String toString() {
-        return "UserModel{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public String getUser_id() {
+        return user_id;
     }
 
-    public String getId() {
-        return id;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public String getPassword() {
-        return password;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getUser_pwd() {
+        return user_pwd;
     }
 
-    public String getEmail() {
-        return email;
+    public void setUser_pwd(String user_pwd) {
+        this.user_pwd = user_pwd;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getUser_phonenum() {
+        return user_phonenum;
     }
 
-    public String getName() {
-        return name;
+    public void setUser_phonenum(String user_phonenum) {
+        this.user_phonenum = user_phonenum;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getUser_profile() {
+        return user_profile;
+    }
+
+    public void setUser_profile(String user_profile) {
+        this.user_profile = user_profile;
+    }
+
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
+
+    public String getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(String reg_date) {
+        this.reg_date = reg_date;
+    }
+
+    public String getUdt_date() {
+        return udt_date;
+    }
+
+    public void setUdt_date(String udt_date) {
+        this.udt_date = udt_date;
+    }
+
+    public String getTeam_id() {
+        return team_id;
+    }
+
+    public void setTeam_id(String team_id) {
+        this.team_id = team_id;
     }
 }

@@ -5,8 +5,19 @@
 <mapper namespace="com.ycjh.mybatis.mapper.UserMapper">
 
 
-    <select id="selectUser" resultType="com.ycjh.user.model.UserModel">
-        SELECT * FROM user
+    <select id="selectUserOne" resultType="com.ycjh.user.model.UserModel" parameterType="com.ycjh.user.model.UserModel">
+        SELECT USER_ID
+                ,USER_NANE
+                ,USER_PWD
+                ,USER_PHONENUM
+                ,USER_EMAIL
+                ,USER_PROFILE
+                ,USER_TYPE
+                ,REG_DATE
+                ,UPT_DATE
+                ,TEAM_ID
+          FROM TB_USER
+         WHERE USER_ID =  #{user_id}
     </select>
 
 </mapper>

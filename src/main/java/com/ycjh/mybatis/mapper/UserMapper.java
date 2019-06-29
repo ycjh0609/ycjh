@@ -8,6 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    public List<UserModel> selectUser();
+
+    public UserModel selectUserOne(UserModel userModel);
+    public List<UserModel> selectUserList(UserModel userModel);
+    public void insertUser(UserModel userModel);
+    public void updateUser(UserModel userModel);
+    public void deleteUser(UserModel userModel);
 
 }
