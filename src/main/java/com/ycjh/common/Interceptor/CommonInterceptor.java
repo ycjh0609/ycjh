@@ -17,8 +17,11 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+
         String requestrUri = request.getRequestURI();
         String requestMehtod = request.getMethod();
+        
         logger.info("=================================[COMMON LOGGER START]============================================");
         logger.info("RequestURI: "+requestrUri);
         logger.info("RequestMehtod: "+requestMehtod);

@@ -11,6 +11,6 @@ public class CommonContoller {
 
     @GetMapping("/")
     public String inedx(){
-        return "common/index";
+        return "redirect:/user/login";
     }
 }

@@ -12,17 +12,21 @@
 
             <!-- Icon -->
             <div class="fadeIn first">
-               <h1>YCJH</h1>
+                <h1>YCJH</h1>
             </div>
 
             <!-- Login Form -->
             <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="user_id">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+                <input type="hidden" name="rsa_user_id">
+                <input type="hidden" name="rsa_user_pwd">
 
 
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+                <input type="hidden" name="publicKeyModulus">
+                <input type="hidden" name="publicKeyExponent">
+
+                <input type="text" class="fadeIn second" name="user_id" placeholder="user_id">
+                <input type="text" class="fadeIn third" name="user_pwd" placeholder="user_pwd">
+
 
 
                 <input type="submit" class="fadeIn fourth" value="Log In">
@@ -30,12 +34,16 @@
 
             <!-- Remind Passowrd -->
             <!--<div id="formFooter">-->
-                <!--<a class="underlineHover" href="#">Forgot Password?</a>-->
+            <!--<a class="underlineHover" href="#">Forgot Password?</a>-->
             <!--</div>-->
 
         </div>
     </div>
-
 </div>
+<script>
+    $(document).ready(function(){
 
+    });
+
+</script>
 </html>
