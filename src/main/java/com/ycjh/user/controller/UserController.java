@@ -79,13 +79,16 @@ public class UserController {
         userModel.setUser_id(user_id);
         userModel.setUser_pwd(user_pwd);
 
-        UserModel UserCheckModel =userService.selectUserOne(userModel);
-        boolean isSuccess = UserCheckModel == null ? false:true;
-        if (isSuccess){
-           String token = jwtService.makeJwt(UserCheckModel);
+        UserModel UserCheckModel =new UserModel();//userService.selectUserOne(userModel);
+        UserCheckModel.setUser_name("지훈");
+        UserCheckModel.setUser_email("jihoon@naver.com");
+        boolean success = true;//UserCheckModel == null ? false:true;
+        String token="";
+        if (success){
+            token = jwtService.makeJwt(UserCheckModel);
             response.setHeader("Authorization",token);
         }
-        ResponseAPIModel responseAPIModel = new ResponseAPIModel(UserCheckModel,isSuccess);
+        ResponseAPIModel responseAPIModel = new ResponseAPIModel(UserCheckModel,success);
         return responseAPIModel;
     }
 

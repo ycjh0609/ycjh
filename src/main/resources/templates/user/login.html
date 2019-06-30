@@ -53,7 +53,9 @@
             })
 
         });
-
+        var header = {
+            token:null
+        }
         function fn_getRsaModel(){
             $.ajax({
                 type:"GET",
@@ -83,9 +85,13 @@
                 },
                 dataType:"json",
                 url:"/users/login",
-                success:function (result) {
-                    if (result.isSuccess){
-                        alert("login sucess to-do: token 발급")
+                async:false,
+                success:function (data, status, xhr) {
+
+
+                    header.token = xhr.getResponseHeader("Authorization");
+                    if (data.success){
+                        alert("login sucess to-do: token 발급");
                     }else{
                         alert("id or pwd 확인 필요")
                         fn_getRsaModel();
