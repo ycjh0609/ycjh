@@ -16,16 +16,16 @@
             </div>
 
             <!-- Login Form -->
-            <form method="post" action="/user/login">
+            <form>
                 <input type="hidden" name="rsa_user_id">
                 <input type="hidden" name="rsa_user_pwd">
 
 
-                <input type="hidden" name="publicKeyModulus">
-                <input type="hidden" name="publicKeyExponent">
+                <input type="hidden" id="publicKeyModulus" name="publicKeyModulus">
+                <input type="hidden" id="publicKeyExponent" name="publicKeyExponent">
 
-                <input type="text" class="fadeIn second" name="user_id" placeholder="user_id">
-                <input type="text" class="fadeIn third" name="user_pwd" placeholder="user_pwd">
+                <input type="text" class="fadeIn second" id="user_id" name="user_id" placeholder="user_id">
+                <input type="text" class="fadeIn third" id="user_pwd" name="user_pwd" placeholder="user_pwd">
 
 
 
@@ -39,11 +39,62 @@
 
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            let submitAction = function() {
+                return false;
+            };
+            $('form').bind('submit', submitAction);
+
+            fn_getRsaModel();
+            $("input[type=submit]").click(function(){
+                fn_encyptRSA();
+            })
+
+        });
+
+        function fn_getRsaModel(){
+            $.ajax({
+                type:"GET",
+                dataType:"json",
+                url:"/users/login",
+                success:function (rsa) {
+                    $("#publicKeyModulus").val(rsa.publicKeyModulus);
+                    $("#publicKeyExponent").val(rsa.publicKeyExponent);
+                },
+                error : function(request) {
+                    alert(request.responseText)
+                    console.log("code:"+request.status+"\n"+"message:"+request.responseText);
+                },
+            })
+        }
+        function fn_encyptRSA() {
+            var encrypt = new JSEncrypt($("#publicKeyModulus").val(),$("#publicKeyExponent").val());
+            var encryptedUserId = encrypt.encrypt($("#user_id").val())
+            $.ajax({
+                type:"POST",
+                data:{test:encryptedUserId},
+                dataType:"text",
+                url:"/users/login",
+                success:function (result) {
+                    alert(result)
+                },
+                error : function(request) {
+                    alert(request.responseText)
+                    console.log("code:"+request.status+"\n"+"message:"+request.responseText);
+                },
+            })
+
+        }
+        function fn_resetLoginForm(){
+
+        }
+        function fn_validateLoginForm(){
+
+        }
+
+
+    </script>
 </div>
-<script>
-    $(document).ready(function(){
-
-    });
-
-</script>
 </html>

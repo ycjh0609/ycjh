@@ -3,8 +3,12 @@ package com.ycjh.user.model;
 public class UserModel {
 
     private String user_id;
-    private String user_name;
     private String user_pwd;
+    //need login
+    private String rsa_user_id;
+    private String rsa_user_pwd;
+
+    private String user_name;
     private String user_phonenum;
     private String user_profile;
     private String user_type;
@@ -82,5 +86,21 @@ public class UserModel {
 
     public void setTeam_id(String team_id) {
         this.team_id = team_id;
+    }
+
+    public String getRsa_user_id() {
+        return rsa_user_id;
+    }
+
+    public String getRsa_user_pwd() {
+        return rsa_user_pwd;
+    }
+
+    public void setRsa_user_id(String rsa_user_id) {
+        this.rsa_user_id = rsa_user_id;
+    }
+
+    public void setRsa_user_pwd(String rsa_user_pwd) {
+        this.rsa_user_pwd = rsa_user_pwd;
     }
 }
