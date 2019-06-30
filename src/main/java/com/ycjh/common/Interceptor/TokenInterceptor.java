@@ -24,7 +24,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         final String token = request.getHeader(HEADER_AUTH);
 
         System.out.println(token);
-        if(token == null || !jwtService.checkJwt(token)){
+        if(token == null || ! jwtService.checkJwt(token)){
             response.sendRedirect("/error");
         }
 

@@ -1,5 +1,6 @@
 package com.ycjh.jwt.service;
 
+import com.ycjh.user.model.UserModel;
 import io.jsonwebtoken.*;
 import lombok.extern.log4j.Log4j;
 
@@ -25,7 +26,7 @@ public class JwtServiceImpl implements JwtService {
 
 
     @Override
-    public String makeJwt(HttpServletRequest res) {
+    public String makeJwt(UserModel userModel) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         Date expireTime = new Date();
@@ -41,11 +42,9 @@ public class JwtServiceImpl implements JwtService {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
-        String name = res.getParameter("name");
-        String email = res.getParameter("email");
 
-        map.put("name", name);
-        map.put("email", email);
+        map.put("User_name", userModel.getUser_name());
+        map.put("user_email", userModel.getUser_email());
 
         JwtBuilder builder = Jwts.builder().setHeader(headerMap)
                 .setClaims(map)

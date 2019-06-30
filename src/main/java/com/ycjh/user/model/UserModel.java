@@ -10,6 +10,7 @@ public class UserModel {
     private String secured_user_pwd;
 
     private String user_name;
+    private String user_email;
     private String user_phonenum;
     private String user_profile;
     private String user_type;
@@ -105,5 +106,13 @@ public class UserModel {
 
     public void setSecured_user_id(String secured_user_id) {
         this.secured_user_id = secured_user_id;
+    }
+
+    public String getUser_email() {
+        return user_email;
+    }
+
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 }

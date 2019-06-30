@@ -59,9 +59,9 @@
                 type:"GET",
                 dataType:"json",
                 url:"/users/login",
-                success:function (rsa) {
-                    $("#publicKeyModulus").val(rsa.publicKeyModulus);
-                    $("#publicKeyExponent").val(rsa.publicKeyExponent);
+                success:function (result) {
+                    $("#publicKeyModulus").val(result.model.publicKeyModulus);
+                    $("#publicKeyExponent").val(result.model.publicKeyExponent);
                 },
                 error : function(request) {
                     alert(request.responseText)

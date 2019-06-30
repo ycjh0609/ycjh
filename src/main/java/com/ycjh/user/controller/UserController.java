@@ -2,6 +2,7 @@ package com.ycjh.user.controller;
 
 
 import com.ycjh.common.Model.ResponseAPIModel;
+import com.ycjh.jwt.service.JwtService;
 import com.ycjh.user.model.UserModel;
 import com.ycjh.user.service.UserService;
 import org.slf4j.Logger;
@@ -26,6 +27,10 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    JwtService jwtService;
+
+
     Logger logger = LoggerFactory.getLogger(UserController.class);
     private final int KEY_SIZE = 1024;
     /**
@@ -37,7 +42,7 @@ public class UserController {
      * @return rsaMap
      */
     @GetMapping("/login")
-    public Map login(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public ResponseAPIModel login(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
         generator.initialize(KEY_SIZE);
@@ -58,7 +63,8 @@ public class UserController {
         rsaMap.put("publicKeyExponent", publicKeyExponent);
         session.setAttribute("_rsaPrivateKey_",privateKey);
 
-        return rsaMap;
+        ResponseAPIModel responseAPIModel = new ResponseAPIModel(rsaMap,true);
+        return responseAPIModel;
     }
     @PostMapping("/login")
     public ResponseAPIModel login(HttpSession session,UserModel userModel,HttpServletResponse response) throws  Exception{
@@ -75,6 +81,10 @@ public class UserController {
 
         UserModel UserCheckModel =userService.selectUserOne(userModel);
         boolean isSuccess = UserCheckModel == null ? false:true;
+        if (isSuccess){
+           String token = jwtService.makeJwt(UserCheckModel);
+            response.setHeader("Authorization",token);
+        }
         ResponseAPIModel responseAPIModel = new ResponseAPIModel(UserCheckModel,isSuccess);
         return responseAPIModel;
     }

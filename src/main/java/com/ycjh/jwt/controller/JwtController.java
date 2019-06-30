@@ -1,27 +1,26 @@
 package com.ycjh.jwt.controller;
 
 import com.ycjh.jwt.service.JwtService;
+import com.ycjh.user.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping("/jwt")
 public class JwtController {
 
     @Autowired
     private JwtService jwtService;
 
-    @PostMapping("/jwt/create")
-    public String createJwt(HttpServletRequest res) throws Exception {
+    @PostMapping("/create")
+    public String createJwt(UserModel model) throws Exception {
 
-        return jwtService.makeJwt(res);
+        return jwtService.makeJwt(model);
     }
 
-    @GetMapping("/jwt/auth")
+    @GetMapping("/auth")
     public boolean authToken(HttpServletRequest res) throws Exception {
         String jwt = res.getParameter("jwt");
 

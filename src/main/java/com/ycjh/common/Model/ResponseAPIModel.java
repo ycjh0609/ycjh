@@ -7,7 +7,7 @@ public class ResponseAPIModel {
 
     private Object model;
     private boolean isSuccess;
-    private String token;
+
 
     public ResponseAPIModel(Object model, boolean isSuccess){
         this.model = model;
@@ -28,4 +28,5 @@ public class ResponseAPIModel {
     public void setSuccess(boolean success) {
         isSuccess = success;
     }
+
 }
