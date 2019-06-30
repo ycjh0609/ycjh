@@ -60,25 +60,30 @@ public class UserController {
         return rsaMap;
     }
     @PostMapping("/login")
-    public String login(HttpSession session, @RequestParam String test) throws  Exception{
+    public UserModel login(HttpSession session,UserModel userModel) throws  Exception{
 
         PrivateKey privateKey = (PrivateKey) session.getAttribute("_rsaPrivateKey_");
         session.removeAttribute("_rsaPrivateKey_"); //
         if (privateKey == null) {
             throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다.");
         }
-        System.out.println(test);
-        String reuslt = decryptRsa(privateKey,test);
+        String user_id = decryptRsa(privateKey,userModel.getSecured_user_id());
+        String user_pwd = decryptRsa(privateKey,userModel.getSecured_user_pwd());
 
-        return reuslt;
+        userModel.setUser_id(user_id);
+        userModel.setUser_pwd(user_pwd);
+
+        return userModel;
     }
-    private String decryptRsa(PrivateKey privateKey, String securedValue) throws  Exception{
 
+
+
+    private String decryptRsa(PrivateKey privateKey, String securedValue) throws  Exception{
         Cipher cipher = Cipher.getInstance("RSA");
         byte[] encryptedBytes = hexToByteArray(securedValue);
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        String decryptedValue = new String(decryptedBytes, "utf-8"); // 문자 인코딩 주의.
+        String decryptedValue = new String(decryptedBytes, "utf-8");
         return decryptedValue;
     }
 

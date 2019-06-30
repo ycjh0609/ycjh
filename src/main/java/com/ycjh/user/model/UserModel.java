@@ -5,8 +5,8 @@ public class UserModel {
     private String user_id;
     private String user_pwd;
     //need login
-    private String rsa_user_id;
-    private String rsa_user_pwd;
+    private String secured_user_id;
+    private String secured_user_pwd;
 
     private String user_name;
     private String user_phonenum;
@@ -15,6 +15,8 @@ public class UserModel {
     private String reg_date;
     private String udt_date;
     private String team_id;
+
+
 
     public String getUser_id() {
         return user_id;
@@ -88,19 +90,19 @@ public class UserModel {
         this.team_id = team_id;
     }
 
-    public String getRsa_user_id() {
-        return rsa_user_id;
+    public String getSecured_user_pwd() {
+        return secured_user_pwd;
     }
 
-    public String getRsa_user_pwd() {
-        return rsa_user_pwd;
+    public void setSecured_user_pwd(String secured_user_pwd) {
+        this.secured_user_pwd = secured_user_pwd;
     }
 
-    public void setRsa_user_id(String rsa_user_id) {
-        this.rsa_user_id = rsa_user_id;
+    public String getSecured_user_id() {
+        return secured_user_id;
     }
 
-    public void setRsa_user_pwd(String rsa_user_pwd) {
-        this.rsa_user_pwd = rsa_user_pwd;
+    public void setSecured_user_id(String secured_user_id) {
+        this.secured_user_id = secured_user_id;
     }
 }

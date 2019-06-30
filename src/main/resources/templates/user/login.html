@@ -70,11 +70,18 @@
             })
         }
         function fn_encyptRSA() {
-            var encrypt = new JSEncrypt($("#publicKeyModulus").val(),$("#publicKeyExponent").val());
-            var encryptedUserId = encrypt.encrypt($("#user_id").val())
+
+            let rsaKey = new RSAKey();
+            rsaKey.setPublic($("#publicKeyModulus").val(),$("#publicKeyExponent").val());
+
+
+            let secured_user_id = rsaKey.encrypt($("#user_id").val());
+            let secured_user_pwd = rsaKey.encrypt($("#user_pwd").val())
             $.ajax({
                 type:"POST",
-                data:{test:encryptedUserId},
+                data:{secured_user_id: secured_user_id,
+                    secured_user_pwd:secured_user_pwd
+                },
                 dataType:"text",
                 url:"/users/login",
                 success:function (result) {
@@ -84,7 +91,7 @@
                     alert(request.responseText)
                     console.log("code:"+request.status+"\n"+"message:"+request.responseText);
                 },
-            })
+            });
 
         }
         function fn_resetLoginForm(){
