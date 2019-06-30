@@ -28,7 +28,7 @@ public class UserRestContoller {
     @PostMapping("/login")
     public String login(UserModel userModel, HttpSession session, HttpServletRequest request, HttpServletResponse response){
 
-        return "";
+        return "success";
     }
 
 
