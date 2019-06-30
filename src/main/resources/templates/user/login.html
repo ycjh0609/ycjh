@@ -47,8 +47,9 @@
             $('form').bind('submit', submitAction);
 
             fn_getRsaModel();
+
             $("input[type=submit]").click(function(){
-                fn_encyptRSA();
+                fn_doLogin();
             })
 
         });
@@ -65,14 +66,13 @@
                 error : function(request) {
                     alert(request.responseText)
                     console.log("code:"+request.status+"\n"+"message:"+request.responseText);
-                },
+                }
             })
         }
-        function fn_encyptRSA() {
-
+        function fn_doLogin() {
+            $("input[type=submit]").prop("disabled", true);
             let rsaKey = new RSAKey();
             rsaKey.setPublic($("#publicKeyModulus").val(),$("#publicKeyExponent").val());
-
 
             let secured_user_id = rsaKey.encrypt($("#user_id").val());
             let secured_user_pwd = rsaKey.encrypt($("#user_pwd").val())
@@ -84,13 +84,19 @@
                 dataType:"json",
                 url:"/users/login",
                 success:function (result) {
-                    alert(result)
+                    if (result.isSuccess){
+                        alert("login sucess to-do: token 발급")
+                    }else{
+                        alert("id or pwd 확인 필요")
+                        fn_getRsaModel();
+                    }
                 },
                 error : function(request) {
                     alert(request.responseText)
                     console.log("code:"+request.status+"\n"+"message:"+request.responseText);
-                },
+                }
             });
+            $("input[type=submit]").prop("disabled", false);
 
         }
         function fn_resetLoginForm(){

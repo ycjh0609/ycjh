@@ -1,8 +1,11 @@
 package com.ycjh.user.controller;
 
 
+import com.ycjh.common.Model.ResponseAPIModel;
 import com.ycjh.user.model.UserModel;
 import com.ycjh.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +26,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
+    Logger logger = LoggerFactory.getLogger(UserController.class);
     private final int KEY_SIZE = 1024;
     /**
      * @desc forwarding rsaModel
@@ -58,7 +61,7 @@ public class UserController {
         return rsaMap;
     }
     @PostMapping("/login")
-    public UserModel login(HttpSession session,UserModel userModel) throws  Exception{
+    public ResponseAPIModel login(HttpSession session,UserModel userModel,HttpServletResponse response) throws  Exception{
 
         PrivateKey privateKey = (PrivateKey) session.getAttribute("_rsaPrivateKey_");
         session.removeAttribute("_rsaPrivateKey_"); //
@@ -67,11 +70,13 @@ public class UserController {
         }
         String user_id = decryptRsa(privateKey,userModel.getSecured_user_id());
         String user_pwd = decryptRsa(privateKey,userModel.getSecured_user_pwd());
-
         userModel.setUser_id(user_id);
         userModel.setUser_pwd(user_pwd);
 
-        return userModel;
+        UserModel UserCheckModel =userService.selectUserOne(userModel);
+        boolean isSuccess = UserCheckModel == null ? false:true;
+        ResponseAPIModel responseAPIModel = new ResponseAPIModel(UserCheckModel,isSuccess);
+        return responseAPIModel;
     }
 
 
@@ -96,5 +101,6 @@ public class UserController {
         }
         return bytes;
     }
+
 
 }

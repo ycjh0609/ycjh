@@ -17,7 +17,8 @@
                 ,UPT_DATE
                 ,TEAM_ID
           FROM TB_USER
-         WHERE USER_ID =  #{user_id}
+         WHERE USER_ID = #{user_id}
+           AND USER_PWD = #{user_pwd}
     </select>
 
 </mapper>
