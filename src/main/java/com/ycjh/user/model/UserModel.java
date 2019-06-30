@@ -1,5 +1,6 @@
 package com.ycjh.user.model;
 
+
 public class UserModel {
 
     private String user_id;
