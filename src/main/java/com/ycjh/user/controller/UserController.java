@@ -4,8 +4,6 @@ package com.ycjh.user.controller;
 import com.ycjh.user.model.UserModel;
 import com.ycjh.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.Cipher;
