@@ -1,6 +1,7 @@
 package com.ycjh.error.controller;
 
 
+import com.ycjh.common.Model.ResponseAPIModel;
 import com.ycjh.common.util.JSONUtil;
 import com.ycjh.error.Model.ErrorModel;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class CustomErrorController implements ErrorController {
     Logger logger = LoggerFactory.getLogger(CustomErrorController.class);
 
     @RequestMapping(value = PATH)
-    public String error(HttpServletRequest request) {
+    public ResponseAPIModel error(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
         String statusCode = String.valueOf(status);
@@ -32,8 +33,8 @@ public class CustomErrorController implements ErrorController {
         ErrorModel errorModel = new ErrorModel();
         errorModel.setStatusCode(statusCode);
         errorModel.setHttpStatus(httpStatus.getReasonPhrase());
-
-        return JSONUtil.toJsonString(errorModel);
+        ResponseAPIModel responseAPIModel = new ResponseAPIModel(errorModel,false);
+        return responseAPIModel;
     }
 
     @Override

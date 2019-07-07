@@ -20,7 +20,9 @@ import java.util.Map;
 @Service("jwtService")
 public class JwtServiceImpl implements JwtService {
 
-    private String secretKey = "ycjhSecretKey";
+    private final String SECRET_KEY = "ycjhSecretKey";
+    private final int TOKEN_TIME_OUT = 30;
+
 
     private Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 
@@ -28,14 +30,13 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String makeJwt(UserModel userModel) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-
         Date expireTime = new Date();
-        expireTime.setTime(expireTime.getTime() + 1000 * 60 * 1);
+        expireTime.setTime(expireTime.getTime() + 1000 * 60 * TOKEN_TIME_OUT);
 
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        Map<String, Object> headerMap = new HashMap<String, Object>();
+        Map<String, Object> headerMap = new HashMap<>();
 
         headerMap.put("typ", "JWT");
         headerMap.put("alg", "HS256");
@@ -57,14 +58,8 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public boolean checkJwt(String jwt) {
         try {
-            Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+            Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
                     .parseClaimsJws(jwt).getBody(); // 정상 수행된다면 해당 토큰은 정상토큰
-
-            logger.info("expireTime :" + claims.getExpiration());
-            logger.info("name :" + claims.get("name"));
-            logger.info("Email :" + claims.get("email"));
-
-            return true;
         } catch (ExpiredJwtException exception) {
             logger.info("토큰 만료");
             return false;
@@ -72,6 +67,7 @@ public class JwtServiceImpl implements JwtService {
             logger.info("토큰 변조");
             return false;
         }
+        return true;
     }
 
 

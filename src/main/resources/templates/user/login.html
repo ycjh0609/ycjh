@@ -15,7 +15,7 @@
             </div>
 
             <!-- Login Form -->
-            <form>
+            <form id="login_form">
                 <input type="hidden" name="rsa_user_id">
                 <input type="hidden" name="rsa_user_pwd">
 
@@ -31,32 +31,28 @@
                 <input type="submit" class="fadeIn fourth" value="Log In">
             </form>
 
-            <!-- Remind Passowrd -->
-            <!--<div id="formFooter">-->
-            <!--<a class="underlineHover" href="#">Forgot Password?</a>-->
-            <!--</div>-->
 
         </div>
     </div>
 
     <script>
         $(document).ready(function(){
-            let submitAction = function() {
-                return false;
-            };
-            $('form').bind('submit', submitAction);
+            fn_initLoginForm();
 
-            fn_getRsaModel();
-
-            $("input[type=submit]").click(function(){
-                fn_doLogin();
+            $("#login_form input[type=submit]").click(function(){
+                if( fn_validateLoginForm() ){
+                    fn_doLogin();
+                }else{
+                    alert("need id and pwd")
+                }
             })
 
         });
-        var header = {
-            token:null
-        }
-        function fn_getRsaModel(){
+
+        function fn_initLoginForm(){
+            $("#login_form").submit(function(){
+                return false;
+            })
             $.ajax({
                 type:"GET",
                 dataType:"json",
@@ -71,46 +67,72 @@
                 }
             })
         }
+
+        function fn_validateLoginForm(){
+
+            let user_id = $("#user_id").val();
+            let user_pwd = $("#user_pwd").val();
+            if (user_id ==null || user_pwd ==null){
+                return false;
+            }
+
+            let publicKeyModulus = $("#publicKeyModulus").val();
+            let publicKeyExponent = $("#publicKeyExponent").val();
+            if (publicKeyModulus == null || publicKeyExponent ==null){
+                return false;
+            }
+
+            return true;
+
+        }
+
         function fn_doLogin() {
-            $("input[type=submit]").prop("disabled", true);
+
+
+
             let rsaKey = new RSAKey();
             rsaKey.setPublic($("#publicKeyModulus").val(),$("#publicKeyExponent").val());
 
             let secured_user_id = rsaKey.encrypt($("#user_id").val());
-            let secured_user_pwd = rsaKey.encrypt($("#user_pwd").val())
+            let secured_user_pwd = rsaKey.encrypt($("#user_pwd").val());
+
+            $("#publicKeyModulus").val("");
+            $("#publicKeyExponent").val("");
+            $("#user_id").val("");
+            $("#user_pwd").val("");
+
             $.ajax({
                 type:"POST",
-                data:{secured_user_id: secured_user_id,
+                data:{
+                    secured_user_id: secured_user_id,
                     secured_user_pwd:secured_user_pwd
                 },
                 dataType:"json",
                 url:"/users/login",
                 async:false,
                 success:function (data, status, xhr) {
-
-
-                    header.token = xhr.getResponseHeader("Authorization");
                     if (data.success){
-                        alert("login sucess to-do: token 발급");
+                        TOCKEN =xhr.getResponseHeader("Authorization");
+
                     }else{
-                        alert("id or pwd 확인 필요")
-                        fn_getRsaModel();
+                        alert("id or pwd 확인 필요");
+                        fn_initLoginForm();
                     }
                 },
                 error : function(request) {
-                    alert(request.responseText)
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText);
+
+                    alert(request.responseText);
+                },
+                fail : function(req){
+                    fn_initLoginForm();
+                    alert(request.responseText);
+
                 }
             });
-            $("input[type=submit]").prop("disabled", false);
+
 
         }
-        function fn_resetLoginForm(){
 
-        }
-        function fn_validateLoginForm(){
-
-        }
 
 
     </script>

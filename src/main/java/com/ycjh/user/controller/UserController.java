@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.Cipher;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.*;
@@ -33,44 +32,42 @@ public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
     private final int KEY_SIZE = 1024;
+    private final String KET_ALG ="RSA";
+    private final String KEY_SESSION_NM ="_rsaPrivateKey_";
     /**
      * @desc forwarding rsaModel
      * @param session
-     * @param request
-     * @param response
      * @exception NoSuchAlgorithmException, InvalidKeySpecException
      * @return rsaMap
      */
     @GetMapping("/login")
-    public ResponseAPIModel login(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public ResponseAPIModel login(HttpSession session) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+        KeyPairGenerator generator = KeyPairGenerator.getInstance(KET_ALG);
         generator.initialize(KEY_SIZE);
-
         KeyPair keyPair = generator.genKeyPair();
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
+        KeyFactory keyFactory = KeyFactory.getInstance(KET_ALG);
         PublicKey publicKey = keyPair.getPublic();
         PrivateKey privateKey = keyPair.getPrivate();
-
 
         RSAPublicKeySpec publicSpec = (RSAPublicKeySpec) keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
 
         String publicKeyModulus = publicSpec.getModulus().toString(16);
         String publicKeyExponent = publicSpec.getPublicExponent().toString(16);
+
         Map<String,String> rsaMap = new HashMap<>();
         rsaMap.put("publicKeyModulus", publicKeyModulus);
         rsaMap.put("publicKeyExponent", publicKeyExponent);
-        session.setAttribute("_rsaPrivateKey_",privateKey);
+        session.setAttribute(KEY_SESSION_NM,privateKey);
 
-        ResponseAPIModel responseAPIModel = new ResponseAPIModel(rsaMap,true);
+        ResponseAPIModel responseAPIModel = new ResponseAPIModel(rsaMap);
         return responseAPIModel;
     }
     @PostMapping("/login")
     public ResponseAPIModel login(HttpSession session,UserModel userModel,HttpServletResponse response) throws  Exception{
 
-        PrivateKey privateKey = (PrivateKey) session.getAttribute("_rsaPrivateKey_");
-        session.removeAttribute("_rsaPrivateKey_"); //
+        PrivateKey privateKey = (PrivateKey) session.getAttribute(KEY_SESSION_NM);
+        session.removeAttribute(KEY_SESSION_NM); //
         if (privateKey == null) {
             throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다.");
         }
@@ -79,16 +76,18 @@ public class UserController {
         userModel.setUser_id(user_id);
         userModel.setUser_pwd(user_pwd);
 
-        UserModel UserCheckModel =new UserModel();//userService.selectUserOne(userModel);
-        UserCheckModel.setUser_name("지훈");
-        UserCheckModel.setUser_email("jihoon@naver.com");
+        UserModel userCheckModel =new UserModel();//userService.selectUserOne(userModel);
+        userCheckModel.setUser_name("지훈");
+        userCheckModel.setUser_email("jihoon@naver.com");
+
+
         boolean success = true;//UserCheckModel == null ? false:true;
         String token="";
         if (success){
-            token = jwtService.makeJwt(UserCheckModel);
+            token = jwtService.makeJwt(userCheckModel);
             response.setHeader("Authorization",token);
         }
-        ResponseAPIModel responseAPIModel = new ResponseAPIModel(UserCheckModel,success);
+        ResponseAPIModel responseAPIModel = new ResponseAPIModel(userCheckModel,success);
         return responseAPIModel;
     }
 

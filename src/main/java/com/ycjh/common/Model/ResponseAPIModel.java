@@ -7,14 +7,11 @@ public class ResponseAPIModel {
 
     private Object model;
     private boolean success;
-    private String token;
 
-    public ResponseAPIModel(Object model, boolean success, String token) {
+    public ResponseAPIModel(Object model){
         this.model = model;
-        this.success = success;
-        this.token = token;
+        this.success = true;
     }
-
     public ResponseAPIModel(Object model, boolean success) {
         this.model = model;
         this.success = success;
@@ -37,11 +34,4 @@ public class ResponseAPIModel {
         this.success = success;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }
